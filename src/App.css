@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: #fff;
+  color: #111;
+  font-family: 'Inter', sans-serif;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+.container {
+  background-color: #080319;
+  width: 100%;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.call-to-action {
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  font-size: 4rem;
+  font-weight: 200;
+  color: rgb(249, 248, 246);
+  line-height: 1.7em;
+  height: 100%;
+  width: 100%;
+  letter-spacing: 0.8rem;
+
+  h1 {
+    margin: 0;
+    padding: 20px;
+  }
+}
+
+.header {
+  width: 100%;
+}
+.logo {
+  height: 2rem;
+  width: auto;
+}
+
+.custom-text-style {
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero {
+  width: 100%;
+  position: relative;
+  margin-top: -150px;
+}
+
+.bento {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hello {
+  margin: 150px 50px 150px 50px;
+}
+
+.services {
+  margin-top: 350px;
+}
+
+.contact {
+  width: 100%;
+  height: 300px;
+  margin-top: 200px;
+}
+
+.scroll-container {
+  width: 50%;
+  margin: 50px auto;
+  color: white;
+}
