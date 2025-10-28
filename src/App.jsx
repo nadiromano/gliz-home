@@ -27,15 +27,14 @@ export default function LogoScrollEffect() {
       link: '#',
       text: 'Contenuti Audiovisivi',
     },
-    
+
   ];
   return (
     <div className="container">
       <div className="header">
         <div className="header-logo">
           <svg
-            width="200"
-            height="118"
+          className='logo-text'
             viewBox="0 0 519 118"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +65,6 @@ export default function LogoScrollEffect() {
         <div className="hero">
           <div
             className="hello"
-            style={{ position: 'relative', height: '300px' }}
           >
             <TextPressure
               text="Hello!"

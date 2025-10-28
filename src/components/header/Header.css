@@ -9,3 +9,11 @@
   height: auto;
   overflow: visible;
 }
+
+@media (max-width: 480px) {
+  .logo-container svg {
+    width: 70px;
+    height: auto;
+    overflow: visible;
+  }
+}

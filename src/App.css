@@ -49,6 +49,9 @@ select {
   width: 100%;
 }
 
+.logo-text {
+  width: 200px;
+}
 
 .call-to-action {
   background-color: red;
@@ -78,9 +81,6 @@ select {
   width: auto;
 }
 
-.custom-text-style {
-}
-
 .content {
   display: flex;
   justify-content: center;
@@ -101,6 +101,8 @@ select {
 
 .hello {
   margin: 150px 50px 150px 50px;
+  height: 300px;
+  position: relative;
 }
 
 .services {
@@ -117,4 +119,42 @@ select {
   width: 50%;
   margin: 50px auto;
   color: white;
+}
+
+@media (max-width: 780px) {
+  .hello {
+    height: 100px;
+  }
+
+  .custom-text-style {
+    font-size: 180px;
+  }
+
+  .services {
+    margin-top: 200px;
+  }
+  .contact {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-text {
+    width: 100px;
+  }
+
+  .hello {
+    height: 50px;
+  }
+  .custom-text-style {
+    font-size: 280px;
+  }
+
+  .services {
+    margin-top: 200px;
+  }
+
+  .contact {
+    margin-top: 100px;
+  }
 }
