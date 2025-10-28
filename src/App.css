@@ -93,15 +93,11 @@ select {
   margin-top: -150px;
 }
 
-.bento {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .hello {
   margin: 150px 50px 150px 50px;
-  height: 300px;
+  height: 450px;
   position: relative;
 }
 
