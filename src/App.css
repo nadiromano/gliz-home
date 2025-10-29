@@ -93,12 +93,14 @@ select {
   margin-top: -150px;
 }
 
-
-
 .hello {
   margin: 150px 50px 150px 50px;
   height: 450px;
   position: relative;
+}
+
+.curved {
+  margin: 250px 0;
 }
 
 .services {
@@ -117,9 +119,30 @@ select {
   color: white;
 }
 
+@media (max-width: 1500px) {
+  .curved {
+    margin: 80px 0;
+  }
+  .custom-text-style {
+    font-size: 200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .curved {
+    margin: 20px 0;
+  }
+  .custom-text-style {
+    font-size: 200px;
+  }
+}
 @media (max-width: 780px) {
   .hello {
     height: 100px;
+  }
+
+  .curved {
+    margin: 150px 0;
   }
 
   .custom-text-style {

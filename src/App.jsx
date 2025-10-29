@@ -27,14 +27,13 @@ export default function LogoScrollEffect() {
       link: '#',
       text: 'Contenuti Audiovisivi',
     },
-
   ];
   return (
     <div className="container">
       <div className="header">
         <div className="header-logo">
           <svg
-          className='logo-text'
+            className="logo-text"
             viewBox="0 0 519 118"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +62,7 @@ export default function LogoScrollEffect() {
 
       <div className="content">
         <div className="hero">
-          <div
-            className="hello"
-          >
+          <div className="hello">
             <TextPressure
               text="Hello!"
               flex={true}
@@ -79,14 +76,17 @@ export default function LogoScrollEffect() {
               minFontSize={36}
             />
           </div>
-          <CurvedLoop
-            marqueeText="Be ✦ Creative ✦ With ✦ Gliz ✦ Agency ✦"
-            speed={3}
-            curveAmount={500}
-            direction="right"
-            interactive={true}
-            className="custom-text-style"
-          />
+          <div className='curved'>
+            <CurvedLoop
+              marqueeText="Be ✦ Creative ✦ With ✦ Gliz ✦ Agency ✦"
+              speed={3}
+              curveAmount={500}
+              direction="right"
+              interactive={true}
+              className="custom-text-style"
+            />
+          </div>
+
           <div
             className="services"
             style={{ height: '600px', position: 'relative' }}
