@@ -55,14 +55,14 @@ export default function LogoScrollEffect() {
               fill="#D5D5D5"
             />
           </svg>
-
-          <Header></Header>
         </div>
       </div>
 
       <div className="content">
         <div className="hero">
-          <div className="hello">
+          <Header></Header>
+
+          {/* <div className="hello">
             <TextPressure
               text="Hello!"
               flex={true}
@@ -75,7 +75,7 @@ export default function LogoScrollEffect() {
               strokeColor="#ff0000"
               minFontSize={36}
             />
-          </div>
+          </div> */}
           <div className='curved'>
             <CurvedLoop
               marqueeText="Be ✦ Creative ✦ With ✦ Gliz ✦ Agency ✦"

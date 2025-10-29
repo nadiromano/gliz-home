@@ -6,54 +6,108 @@ const Header = () => {
   useEffect(() => {
     const paths = document.querySelectorAll('.logo-container svg path');
 
+    // === GLITCH PERIODICO (colore + opacità + movimento) ===
     const glitch = () => {
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({ defaults: { overwrite: 'auto' } });
 
-      // Primo scatto forte
       tl.to(paths, {
-        x: () => gsap.utils.random(-80, 80), // spostamento orizzontale evidente
-        y: () => gsap.utils.random(-25, 25), // leggero movimento verticale
+        x: () => gsap.utils.random(-60, 60),
+        y: () => gsap.utils.random(-25, 25),
         duration: 0.45,
         stagger: 0.03,
         ease: 'power2.inOut',
       });
 
-      // Ritorno lento
+      // opacità e colore
+      tl.to(
+        paths,
+        {
+          opacity: () => gsap.utils.random(0.4, 1),
+          fill: () => {
+            const colors = [
+              '#FF0074',
+              '#2F7DC1',
+              '#0DB14B',
+              '#D5D5D5',
+              '#FFFFFF',
+            ];
+            return gsap.utils.random(colors);
+          },
+          duration: 0.1,
+          repeat: 1,
+          yoyo: true,
+          stagger: 0.02,
+          ease: 'none',
+        },
+        '<'
+      );
+
+      // ritorno
       tl.to(paths, {
         x: 0,
         y: 0,
-        duration: 0.25,
-        stagger: 0.02,
-        ease: 'power2.out',
-      });
-
-      // Secondo mini scatto (per dare realismo)
-      tl.to(paths, {
-        x: () => gsap.utils.random(-20, 20),
-        y: () => gsap.utils.random(-10, 10),
-        duration: 0.1,
-        stagger: 0.02,
-        ease: 'power2.inOut',
-      });
-
-      // Torna stabile
-      tl.to(paths, {
-        x: 0,
-        y: 0,
-        duration: 0.3,
+        opacity: 1,
+        duration: 0.35,
         stagger: 0.02,
         ease: 'power2.out',
       });
     };
 
-    // glitch iniziale
-    glitch();
+    // Glitch ogni 4s
+    const interval = setInterval(glitch, 2000);
 
-    // ogni 8 secondi
-    const interval = setInterval(glitch,2000);
-    return () => clearInterval(interval);
+    // === EFFETTO SCROLL (spostamento + opacità) ===
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const handleScroll = () => {
+      const delta = window.scrollY - lastScrollY;
+      lastScrollY = window.scrollY;
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const intensity = Math.min(Math.abs(delta) / 150, 1.5); // più evidente
+
+          gsap.to(paths, {
+            x: (i) => {
+              const angle = (i / paths.length) * Math.PI * 2;
+              return Math.cos(angle) * 100 * intensity; // più marcato
+            },
+            y: (i) => {
+              const angle = (i / paths.length) * Math.PI * 2;
+              return Math.sin(angle) * 60 * intensity;
+            },
+            opacity: () => 1 - 0.5 * intensity, // leggera dissolvenza
+            duration: 0.4,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          });
+
+          // Ritorno al centro dopo breve pausa
+          clearTimeout(window.scrollResetTimeout);
+          window.scrollResetTimeout = setTimeout(() => {
+            gsap.to(paths, {
+              x: 0,
+              y: 0,
+              opacity: 1,
+              duration: 0.6,
+              ease: 'power3.out',
+            });
+          }, 250);
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
-
   return (
     <div className="header-container">
       <div className="logo-container">

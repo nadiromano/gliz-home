@@ -50,7 +50,7 @@ select {
 }
 
 .logo-text {
-  width: 200px;
+  width: 100px;
 }
 
 .call-to-action {
@@ -75,6 +75,7 @@ select {
 
 .header {
   width: 100%;
+  padding: 30px 0;
 }
 .logo {
   height: 2rem;
@@ -90,7 +91,6 @@ select {
 .hero {
   width: 100%;
   position: relative;
-  margin-top: -150px;
 }
 
 .hello {
@@ -100,7 +100,7 @@ select {
 }
 
 .curved {
-  margin: 250px 0;
+  margin:100px 0;
 }
 
 .services {
@@ -165,6 +165,8 @@ select {
   .hello {
     height: 50px;
   }
+
+  
   .custom-text-style {
     font-size: 280px;
   }
