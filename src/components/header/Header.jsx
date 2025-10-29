@@ -4,59 +4,66 @@ import './Header.css';
 
 const Header = () => {
   useEffect(() => {
-    const paths = document.querySelectorAll('.logo-container svg path');
+    const logo = document.querySelector('.logo-container svg');
+    const paths = Array.from(
+      document.querySelectorAll('.logo-container svg path')
+    );
 
-    // === GLITCH PERIODICO (colore + opacità + movimento) ===
+    // === funzione helper: attiva/desattiva il bianco e nero ===
+    const setGrayscale = (active, duration = 1) => {
+      gsap.to(logo, {
+        filter: active ? 'grayscale(1)' : 'grayscale(0)',
+        duration,
+        ease: 'power2.out',
+      });
+    };
+
+    // inizialmente logo in bianco e nero
+    setGrayscale(true, 0);
+
+    // === GLITCH PERIODICO ===
     const glitch = () => {
-      const tl = gsap.timeline({ defaults: { overwrite: 'auto' } });
+      // passa temporaneamente a colori
+      setGrayscale(false, 0.2);
+
+      const tl = gsap.timeline({
+        defaults: { overwrite: 'auto' },
+        onComplete: () => setGrayscale(true, 0.8),
+      });
 
       tl.to(paths, {
         x: () => gsap.utils.random(-60, 60),
         y: () => gsap.utils.random(-25, 25),
-        duration: 0.45,
+        duration: 0.4,
         stagger: 0.03,
         ease: 'power2.inOut',
       });
 
-      // opacità e colore
       tl.to(
         paths,
         {
-          opacity: () => gsap.utils.random(0.4, 1),
-          fill: () => {
-            const colors = [
-              '#FF0074',
-              '#2F7DC1',
-              '#0DB14B',
-              '#D5D5D5',
-              '#FFFFFF',
-            ];
-            return gsap.utils.random(colors);
-          },
+          opacity: () => gsap.utils.random(0.5, 1),
           duration: 0.1,
           repeat: 1,
           yoyo: true,
-          stagger: 0.02,
           ease: 'none',
         },
         '<'
       );
 
-      // ritorno
       tl.to(paths, {
         x: 0,
         y: 0,
         opacity: 1,
-        duration: 0.35,
+        duration: 0.3,
         stagger: 0.02,
         ease: 'power2.out',
       });
     };
 
-    // Glitch ogni 4s
-    const interval = setInterval(glitch, 2000);
+    const interval = setInterval(glitch, 4000);
 
-    // === EFFETTO SCROLL (spostamento + opacità) ===
+    // === EFFETTO SCROLL ===
     let lastScrollY = window.scrollY;
     let ticking = false;
 
@@ -66,24 +73,25 @@ const Header = () => {
 
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const intensity = Math.min(Math.abs(delta) / 150, 1.5); // più evidente
+          const intensity = Math.min(Math.abs(delta) / 150, 1.5);
+
+          if (intensity > 0.1) setGrayscale(false, 0.3); // ritorna a colori durante movimento
 
           gsap.to(paths, {
             x: (i) => {
               const angle = (i / paths.length) * Math.PI * 2;
-              return Math.cos(angle) * 100 * intensity; // più marcato
+              return Math.cos(angle) * 100 * intensity;
             },
             y: (i) => {
               const angle = (i / paths.length) * Math.PI * 2;
               return Math.sin(angle) * 60 * intensity;
             },
-            opacity: () => 1 - 0.5 * intensity, // leggera dissolvenza
+            opacity: () => 1 - 0.3 * intensity,
             duration: 0.4,
             ease: 'power2.out',
             overwrite: 'auto',
           });
 
-          // Ritorno al centro dopo breve pausa
           clearTimeout(window.scrollResetTimeout);
           window.scrollResetTimeout = setTimeout(() => {
             gsap.to(paths, {
@@ -93,7 +101,8 @@ const Header = () => {
               duration: 0.6,
               ease: 'power3.out',
             });
-          }, 250);
+            setGrayscale(true, .8);
+          }, 100);
 
           ticking = false;
         });
@@ -103,9 +112,50 @@ const Header = () => {
 
     window.addEventListener('scroll', handleScroll);
 
+    // === HOVER: espansione + colore ===
+    const handleMouseEnter = () => {
+      setGrayscale(false, 0.4); // ritorna a colori al passaggio del mouse
+
+      const rect = logo.getBoundingClientRect();
+      const centerY = rect.height / 2;
+      const maxDistance = centerY;
+
+      paths.forEach((path) => {
+        const box = path.getBBox();
+        const cy = box.y + box.height / 2;
+        const distance = Math.abs(cy - centerY);
+
+        const influence = distance / maxDistance;
+        const moveY = (cy < centerY ? -1 : 1) * influence * 80;
+        const opacity = 1 - influence * 0.5;
+
+        gsap.to(path, {
+          y: moveY,
+          opacity,
+          duration: 0.6,
+          ease: 'power3.out',
+        });
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(paths, {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power3.inOut',
+        onComplete: () => setGrayscale(true, 1),
+      });
+    };
+
+    logo.addEventListener('mouseenter', handleMouseEnter);
+    logo.addEventListener('mouseleave', handleMouseLeave);
+
     return () => {
       clearInterval(interval);
       window.removeEventListener('scroll', handleScroll);
+      logo.removeEventListener('mouseenter', handleMouseEnter);
+      logo.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
   return (
