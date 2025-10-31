@@ -6,12 +6,26 @@
 }
 
 .logo-container {
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
 .logo-container svg {
-  width: 100%;
-  height: auto;
+  width: 150%;
+  height: 100%;
   overflow: visible;
+  min-height: 1250px;
+}
+
+@media (max-width: 1050px) {
+  .logo-container svg {
+    min-height: 1000px;
+  }
+
+  @media (max-width: 650px) {
+  .logo-container svg {
+    min-height: 600px;
+      padding: 1rem;
+
+  }
 }

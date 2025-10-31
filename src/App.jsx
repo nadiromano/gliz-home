@@ -62,21 +62,7 @@ export default function LogoScrollEffect() {
         <div className="hero">
           <Header></Header>
 
-          {/* <div className="hello">
-            <TextPressure
-              text="Hello!"
-              flex={true}
-              alpha={false}
-              stroke={false}
-              width={true}
-              weight={true}
-              italic={true}
-              textColor="#ffffff"
-              strokeColor="#ff0000"
-              minFontSize={36}
-            />
-          </div> */}
-          <div className='curved'>
+          {/* <div className='curved'>
             <CurvedLoop
               marqueeText="Be ✦ Creative ✦ With ✦ Gliz ✦ Agency ✦"
               speed={3}
@@ -85,7 +71,7 @@ export default function LogoScrollEffect() {
               interactive={true}
               className="custom-text-style"
             />
-          </div>
+          </div> */}
 
           <div
             className="services"
